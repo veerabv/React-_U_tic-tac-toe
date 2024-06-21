@@ -95,35 +95,60 @@ function App() {
       };
     });
   }
-  return (
-    <main>
-      <div id="game-container">
-        <ol id="players" className="highlight-player">
-          <Player
-            initialName="Player-1"
-            symbol="X"
-            isActive={activePlayer === "X"}
-            onChangeName={handlePlayerNameChange}
-          />
-          <Player
-            initialName="Player-2"
-            symbol="O"
-            isActive={activePlayer === "O"}
-            onChangeName={handlePlayerNameChange}
-          />
-        </ol>
-        {(winner || hasDraw) && (
-          <GameOver winner={players[winner]} rematch={handleRematch} />
-        )}
-        <GameBoard
-          onSelectSquare={selectHandleSquare}
-          board={gameBoard}
+    return (
 
-          // activePlayer={activePlayer}
-        />
-      </div>
-      <Log turns={gameTurns} />
-    </main>
+      <main>
+        <div id="game-container">
+          <ol id="players">
+            <li>
+              <span className="player">
+              <span className="player-name">Player 1</span>
+              <span className="player-symbol">X</span>
+              </span>
+
+            </li>
+            <li>
+            <span className="player">
+            <span className="player-name">Player 2</span>
+            <span className="player-symbol">O</span>
+            </span>
+            </li>
+
+          </ol>
+
+        </div>
+
+      </main>
+
+
+    // <main>
+    //   <div id="game-container">
+    //     <ol id="players" className="highlight-player">
+    //       <Player
+    //         initialName="Player-1"
+    //         symbol="X"
+    //         isActive={activePlayer === "X"}
+    //         onChangeName={handlePlayerNameChange}
+    //       />
+    //       <Player
+    //         initialName="Player-2"
+    //         symbol="O"
+    //         isActive={activePlayer === "O"}
+    //         onChangeName={handlePlayerNameChange}
+    //       />
+    //     </ol>
+    //     {(winner || hasDraw) && (
+    //       <GameOver winner={players[winner]} rematch={handleRematch} />
+    //     )}
+    //     <GameBoard
+    //       onSelectSquare={selectHandleSquare}
+    //       board={gameBoard}
+
+    //       // activePlayer={activePlayer}
+    //     />
+    //   </div>
+    //   <Log turns={gameTurns} />
+    // </main>
   );
 }
 

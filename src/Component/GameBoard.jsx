@@ -48,23 +48,13 @@
 
 
 import React , {useState}  from 'react';
-const initialGameBoard = [
-  [null,null,null],
-  [null,null,null],
-  [null,null,null],
-]
 
-function GameBoard() {
 
-  const [gameBoard, setGameBoard] = useState(initialGameBoard);
+function GameBoard({gameBoard,handleSquare}) {
+
+  
   // console.log(gameBoard);
-  function handleSquare(row,col){
-    setGameBoard((prevGameboard) => {
-      const updatedBoard = [...prevGameboard];
-      updatedBoard[row][col] = "X";
-      return updatedBoard;
-    })
-  }
+ 
   return (
     <ol id="game-board">
       {gameBoard.map((row ,rowIndex ) => (<li key = {rowIndex}>

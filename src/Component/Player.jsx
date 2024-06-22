@@ -42,14 +42,14 @@
 
 import React ,{useState} from 'react';
 
-function Player({name,symbol}) {
+function Player({name,symbol,...otherProps}) {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(name);
   function handleNameCahnges(event) {
     setPlayerName(event.target.value);
   }
   return (
-    <li>
+    <li {...otherProps}>
     <span className="player">
       {!isEditing && (<span className="player-name">{playerName}</span>) }
       {isEditing && (<input type="text" required  value={playerName} onChange={handleNameCahnges} />)}

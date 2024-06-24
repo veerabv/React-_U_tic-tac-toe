@@ -60,6 +60,7 @@ function GameBoard({turns,handleSquare}) {
   for (const turn of turns) {
     const {square,player} = turn;
     const {row,column} = square;
+    console.log(row,column,"::::::::::::::::::::");
     gameBoard[row][column] = player;
   }
   

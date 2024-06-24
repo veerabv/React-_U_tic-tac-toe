@@ -5,17 +5,27 @@ import Log from "./Component/Log.jsx";
 import { WINNING_COMBINATIONS } from "./winning_combinations.js";
 import GameOver from "./Component/GameOver.jsx";
 
+function derivedActivePlayer(turns) {
+  let currentPlayer = "X";
+  if(turns.length>0 && turns[0].player === 'X'){
+    currentPlayer = "O";
+  }
+  return currentPlayer;
+}
+
 function App() {
   const [gameTurns, setGameTurns] = useState([])
+   
+  const activePlayer = derivedActivePlayer(gameTurns);
+
   // const [gameBoard, setGameBoard] = useState(initialGameBoard);
-  const [activePlayer , setActivePlayer] = useState('X');
+  // const [activePlayer , setActivePlayer] = useState('X');
   function handleSquare(row,col){
-    setActivePlayer((lastSymbol) => lastSymbol === 'X' ? 'O' : 'X');
+    // setActivePlayer((lastSymbol) => lastSymbol === 'X' ? 'O' : 'X');.
+  
     setGameTurns((prevTurns) => {
-      let currentPlayer = "X";
-      if(prevTurns.length>0 && prevTurns[0].player === 'X'){
-        currentPlayer = "O";
-      }
+      const currentPlayer = derivedActivePlayer(prevTurns);
+     
       const updatedTurns = [{square : {row: row,column: col},player : currentPlayer},...prevTurns];
 
       return updatedTurns;

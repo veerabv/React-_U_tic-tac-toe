@@ -5,21 +5,26 @@ import Log from "./Component/Log.jsx";
 import { WINNING_COMBINATIONS } from "./winning_combinations.js";
 import GameOver from "./Component/GameOver.jsx";
 
-const initialGameBoard = [
-  [null,null,null],
-  [null,null,null],
-  [null,null,null],
-]
 function App() {
-  const [gameBoard, setGameBoard] = useState(initialGameBoard);
+  const [gameTurns, setGameTurns] = useState([])
+  // const [gameBoard, setGameBoard] = useState(initialGameBoard);
   const [activePlayer , setActivePlayer] = useState('X');
   function handleSquare(row,col){
     setActivePlayer((lastSymbol) => lastSymbol === 'X' ? 'O' : 'X');
-    setGameBoard((prevGameboard) => {
-      const updatedBoard = [...prevGameboard];
-      updatedBoard[row][col] = activePlayer;
-      return updatedBoard;
+    setGameTurns((prevTurns) => {
+      let currentPlayer = "X";
+      if(prevTurns.length>0 && prevTurns[0].player === 'X'){
+        currentPlayer = "O";
+      }
+      const updatedTurns = [{square : {row: row,column: col},player : currentPlayer},...prevTurns];
+
+      return updatedTurns;
     })
+    // setGameBoard((prevGameboard) => {
+    //   const updatedBoard = [...prevGameboard];
+    //   updatedBoard[row][col] = activePlayer;
+    //   return updatedBoard;
+    // })
   }
   
     return (
@@ -31,8 +36,9 @@ function App() {
           <Player name = "Player2" symbol = "O" className = {activePlayer=== "O" ? "active":""} />
 
           </ol>
-          <GameBoard gameBoard = {gameBoard} handleSquare = {handleSquare}/>
+          <GameBoard turns = {gameTurns} handleSquare = {handleSquare}/>
         </div>
+        <Log turns = {gameTurns}/>
        
 
       </main>

@@ -49,11 +49,21 @@
 
 import React , {useState}  from 'react';
 
+const initialGameBoard = [
+  [null,null,null],
+  [null,null,null],
+  [null,null,null],
+]
 
-function GameBoard({gameBoard,handleSquare}) {
-
+function GameBoard({turns,handleSquare}) {
+  let gameBoard = initialGameBoard   //deriving a state from the props
+  for (const turn of turns) {
+    const {square,player} = turn;
+    const {row,column} = square;
+    gameBoard[row][column] = player;
+  }
   
-  // console.log(gameBoard);
+  console.log(gameBoard);
  
   return (
     <ol id="game-board">

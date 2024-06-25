@@ -5,6 +5,8 @@ import Log from "./Component/Log.jsx";
 import { WINNING_COMBINATIONS } from "./winning_combinations.js";
 import GameOver from "./Component/GameOver.jsx";
 
+const PlayerSymbol = {X : "Smile 1" , O : "Smile 2"}
+
 const initialGameBoard = [
   [null, null, null],
   [null, null, null],
@@ -18,13 +20,7 @@ function derivedActivePlayer(turns) {
   }
   return currentPlayer;
 }
-
-function App() {
-  let winner;
-  const [gameTurns, setGameTurns] = useState([]);
-  const [player , setPlayer] = useState({X : "Player 1" , O : "Player 2"});
-
-  const activePlayer = derivedActivePlayer(gameTurns);
+function deriveGameboard(gameTurns){
   let gameBoard = [...initialGameBoard.map(array => [...array])]; 
   for (const turn of gameTurns) {
     const { square, player } = turn;
@@ -32,6 +28,10 @@ function App() {
 
     gameBoard[row][column] = player;
   }
+  return gameBoard;
+}
+function derivedWinner(gameBoard,player){
+  let winner;
   for (const combination of WINNING_COMBINATIONS) {
     let firstSquare = gameBoard[combination[0].row][combination[0].column];
     let secondSquare = gameBoard[combination[1].row][combination[1].column];
@@ -44,6 +44,16 @@ function App() {
       winner = player[firstSquare];
     }
   }
+  return winner
+}
+function App() {
+  
+  const [gameTurns, setGameTurns] = useState([]);
+  const [player , setPlayer] = useState(PlayerSymbol);
+
+  const activePlayer = derivedActivePlayer(gameTurns);
+  let gameBoard = deriveGameboard(gameTurns);
+ let winner = derivedWinner(gameBoard,player);
 
   let checkDarw = gameTurns.length === 9 && !winner;
 
@@ -75,13 +85,13 @@ function App() {
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <Player
-            name="Player1"
+            name={player.X}
             symbol="X"
             className={activePlayer === "X" ? "active" : ""}
             handlePlayer = {handlePlayer}
           />
           <Player
-            name="Player2"
+            name={player.O}
             symbol="O"
             className={activePlayer === "O" ? "active" : ""}
             handlePlayer = {handlePlayer}

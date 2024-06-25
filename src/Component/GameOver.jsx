@@ -1,6 +1,6 @@
 import React from "react";
 
-function GameOver({ winner, rematch }) {
+function GameOver({ winner,rematch }) {
   return (
     <div id="game-over">
       <h2>Game Over!</h2>
@@ -8,7 +8,7 @@ function GameOver({ winner, rematch }) {
       {!winner && <p>IT's a Draw</p>}
 
       <p>
-        <button onClick={rematch}>Rematch!</button>
+        <button onClick = {rematch}>Rematch!</button>
       </p>
     </div>
   );

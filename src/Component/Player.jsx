@@ -42,12 +42,19 @@
 
 import React ,{useState} from 'react';
 
-function Player({name,symbol,...otherProps}) {
+function Player({name,symbol,handlePlayer,...otherProps}) {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(name);
   function handleNameCahnges(event) {
     setPlayerName(event.target.value);
   }
+  function handleEditing() {
+    setIsEditing((ps) => !ps)
+    if(isEditing)  handlePlayer(symbol , playerName)
+   
+
+  }
+
   return (
     <li {...otherProps}>
     <span className="player">
@@ -56,7 +63,7 @@ function Player({name,symbol,...otherProps}) {
     
     <span className="player-symbol">{symbol}</span>
     </span>
-    <button onClick = {() => setIsEditing((ps) => !ps)}>{isEditing ? "Save" : "Edit"}</button>
+    <button onClick = {handleEditing}>{isEditing ? "Save" : "Edit"}</button>
 
   </li>
   )

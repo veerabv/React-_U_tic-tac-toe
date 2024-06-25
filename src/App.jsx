@@ -22,10 +22,10 @@ function derivedActivePlayer(turns) {
 function App() {
   let winner;
   const [gameTurns, setGameTurns] = useState([]);
+  const [player , setPlayer] = useState({X : "Player 1" , O : "Player 2"});
 
   const activePlayer = derivedActivePlayer(gameTurns);
-  let gameBoard = [...initialGameBoard.map(array => [...array])]; //deriving a state from the props
-
+  let gameBoard = [...initialGameBoard.map(array => [...array])]; 
   for (const turn of gameTurns) {
     const { square, player } = turn;
     const { row, column } = square;
@@ -41,7 +41,7 @@ function App() {
       firstSquare === secondSquare &&
       firstSquare === thirdSquare
     ) {
-      winner = firstSquare;
+      winner = player[firstSquare];
     }
   }
 
@@ -64,6 +64,12 @@ function App() {
     setGameTurns([]);
   }
 
+  function handlePlayer(symbol, player){
+    setPlayer((prevState) =>  {
+      return { ...prevState,[symbol]: player}
+    })
+  }
+
   return (
     <main>
       <div id="game-container">
@@ -72,11 +78,13 @@ function App() {
             name="Player1"
             symbol="X"
             className={activePlayer === "X" ? "active" : ""}
+            handlePlayer = {handlePlayer}
           />
           <Player
             name="Player2"
             symbol="O"
             className={activePlayer === "O" ? "active" : ""}
+            handlePlayer = {handlePlayer}
           />
         </ol>
         {(winner || checkDarw) && <GameOver winner={winner}  rematch = {rematch}/>}

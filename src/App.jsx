@@ -5,6 +5,12 @@ import Log from "./Component/Log.jsx";
 import { WINNING_COMBINATIONS } from "./winning_combinations.js";
 import GameOver from "./Component/GameOver.jsx";
 
+const initialGameBoard = [
+  [null,null,null],
+  [null,null,null],
+  [null,null,null],
+]
+
 function derivedActivePlayer(turns) {
   let currentPlayer = "X";
   if(turns.length>0 && turns[0].player === 'X'){
@@ -17,24 +23,29 @@ function App() {
   const [gameTurns, setGameTurns] = useState([])
    
   const activePlayer = derivedActivePlayer(gameTurns);
+  let gameBoard = initialGameBoard   //deriving a state from the props
+  
+  for (const turn of gameTurns) {
+   
+    const {square,player} = turn;
+    const {row,column} = square;
 
-  // const [gameBoard, setGameBoard] = useState(initialGameBoard);
-  // const [activePlayer , setActivePlayer] = useState('X');
+    gameBoard[row][column] = player;
+  }
+  
+
+ 
   function handleSquare(row,col){
-    // setActivePlayer((lastSymbol) => lastSymbol === 'X' ? 'O' : 'X');.
+   
   
     setGameTurns((prevTurns) => {
       const currentPlayer = derivedActivePlayer(prevTurns);
-     
+       
       const updatedTurns = [{square : {row: row,column: col},player : currentPlayer},...prevTurns];
 
       return updatedTurns;
     })
-    // setGameBoard((prevGameboard) => {
-    //   const updatedBoard = [...prevGameboard];
-    //   updatedBoard[row][col] = activePlayer;
-    //   return updatedBoard;
-    // })
+    
   }
   
     return (
@@ -46,7 +57,7 @@ function App() {
           <Player name = "Player2" symbol = "O" className = {activePlayer=== "O" ? "active":""} />
 
           </ol>
-          <GameBoard turns = {gameTurns} handleSquare = {handleSquare}/>
+          <GameBoard board = {gameBoard} handleSquare = {handleSquare}/>
         </div>
         <Log turns = {gameTurns}/>
        

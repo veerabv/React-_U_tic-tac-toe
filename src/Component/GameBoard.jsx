@@ -49,29 +49,17 @@
 
 import React , {useState}  from 'react';
 
-const initialGameBoard = [
-  [null,null,null],
-  [null,null,null],
-  [null,null,null],
-]
 
-function GameBoard({turns,handleSquare}) {
-  let gameBoard = initialGameBoard   //deriving a state from the props
-  for (const turn of turns) {
-    const {square,player} = turn;
-    const {row,column} = square;
-    console.log(row,column,"::::::::::::::::::::");
-    gameBoard[row][column] = player;
-  }
-  
-  console.log(gameBoard);
+
+function GameBoard({board,handleSquare}) {
  
+
   return (
     <ol id="game-board">
-      {gameBoard.map((row ,rowIndex ) => (<li key = {rowIndex}>
+      {board.map((row ,rowIndex ) => (<li key = {rowIndex}>
         <ol>
           {row.map((symbol,colIndex) =>(<li key={colIndex}><button 
-          onClick = {() => handleSquare(rowIndex,colIndex)}>{symbol}</button></li>))}
+          onClick = {() => handleSquare(rowIndex,colIndex)} disabled = {symbol !== null}>{symbol}</button></li>))}
         </ol>
       </li>))}
 
